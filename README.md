@@ -36,3 +36,41 @@ The data powering the recommendation system should be refreshed on a weekly basi
 The system must be capable of efficiently serving recommendations to a variable stream of users.
 
 >Given the unpredictable nature of concurrent user activity, the recommendation engine should be designed to automatically scale in response to increased demand and scale down during periods of low activity. This dynamic scalability ensures optimal use of computing resources, reduces operational costs, and enhances the system’s robustness in handling traffic fluctuations. As a result, the system will maintain high availability and performance, even under heavy user load, supporting seamless concurrent browsing across the platform.
+
+## System Requirements
+
+To begin building a solution that addresses the defined business requirements, it is essential to translate those requirements into system requirements — both functional and non-functional. 
+
+The following are the functional requirements that were retrieved from the business requirements.
+
+- All user interactions with the website such as clicks, likes, dislikes, ratings, bookmarks, comments, page views, reading time, and enrollments shall be tracked. Each interaction shall be accompanied by contextual metadata, capturing information such as timestamp, location, device type, session duration, user state, interaction type, whether the item was recommended, and whether the recommendation was accepted or ignored. 
+
+- The homepage shall feature two distinct sections for recommendations. A section showcasing 3 to 6 trending items shall display globally popular content, while a separate section shall present 9 to 12 personalized items based on user-specific data and preferences.
+
+- When users perform product searches, the system shall re-rank the resulting items based on predicted relevance to the individual user. Users shall have the ability to toggle the ranking mode between "personalized" and "overall popularity". The system shall not filter out any search results based on the query itself - all results must be preserved and presented.
+
+- Each product page shall include a "similar items" section displaying 6 to 9 items related to the current product. These similar items are non-personalized and are determined based on product attributes and aggregated user interaction history across the entire user base, not limited to any specific individual.
+
+- Popularity shall be computed using the recent history of user interactions with a product. Similarity between products shall be determined through a combination of product attributes and behavioral patterns observed in users who have interacted with those items.
+
+- The system shall generate personalized recommendations using a combination of the user’s interaction history and, when a user is logged in and not browsing in incognito mode, demographic data such as age, gender, and nationality. 
+
+- The recommendation system shall initially provide popularity-based suggestions for new users without interaction data within the personalized recommendations section. When a user is logged in and not browsing in incognito mode, the system may surface content that is popular among users with similar demographic attributes. Following the user's first meaningful interaction with the platform, the system shall activate personalized recommendations tailored to the individual’s behavior and preferences.
+
+- For newly added items that do not yet have sufficient interaction history, the system shall display them in a dedicated section for a limited duration - typically up to one week or until a predefined threshold of user engagement is met. Once this condition is satisfied, the item will be removed from the "new items" section and treated as a regular product within the platform. While listed in the "new items" section, these items shall not be included in any recommendation algorithms.
+
+- Recommendation datasets shall be refreshed on a weekly basis. Each update shall incorporate both historical data and the most recent weekly user activity. Long-term user profiles must persist across these updates and be reapplied to the evolving item inventory.
+
+- The system shall compute and present key performance metrics to evaluate recommendation effectiveness. These shall include Click-Through Rate (CTR), Conversion Rate, Dwell Time, Engagement Rate, Coverage, Diversity, Precision@K, Recall@K, and Normalized Discounted Cumulative Gain (NDCG@K).
+
+The following are the non-functional requirements that were retrieved from the business requirements.
+
+- The recommendation system must deliver updated recommendations in real time, ensuring low latency and high responsiveness to dynamically reflect changes in user behavior throughout each session. This responsiveness must be maintained without degrading overall system performance.
+
+- The system shall be architected for automatic scalability by expanding resources in response to increased demand and contracting during periods of reduced activity.
+
+- High availability must be ensured, with the system made to be resilient against service interruptions, traffic surges, and potential component failures. The architecture must ensure fault tolerance and uninterrupted service delivery under varying load conditions.
+
+- The system design shall support the integration of multiple recommendation model types, enabling the deployment of diverse algorithms tailored to specific use cases. Moreover, the recommendation engine must be capable of evolving iteratively, allowing for regular updates, refinements, and enhancements to the models.
+
+- All historical interaction and recommendation data must be consistently structured, securely stored, and readily accessible for downstream analytics, reporting, and model training.
